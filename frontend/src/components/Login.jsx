@@ -20,7 +20,7 @@ const Login = () => {
     return (
         <VStack spacing='5px' color='black'>
             <FormControl id='email' isRequired>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <Input placeholder='Enter Your Email' onChange={(e) => setEmail(e.target.value)} _placeholder={{ opacity: 1, color: 'black' }} />
             </FormControl>
             <FormControl id="password" isRequired>
