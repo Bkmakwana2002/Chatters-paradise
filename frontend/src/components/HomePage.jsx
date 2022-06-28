@@ -3,8 +3,8 @@ import { Box, Container, Tabs, Text, TabList, TabPanel, Tab, TabPanels } from '@
 import SignIn from './SignIn'
 import Login from './Login'
 
-const HomePage = () => {
 
+const HomePage = () => {
 
   return (
     <Container maxW='xl' centerContent>

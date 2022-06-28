@@ -1,8 +1,13 @@
 import React from 'react'
 import { FormControl, FormLabel, VStack, Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useToast } from '@chakra-ui/react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
+
+    let navigate = useNavigate();
 
     const [name, setName] = useState();
     const [email, setEmail] = useState();
@@ -11,17 +16,117 @@ const SignIn = () => {
     const [pic, setPic] = useState();
     const [picLoading, setPicLoading] = useState(false);
     const [show, setShow] = useState(false);
+    const toast = useToast()
 
     const handleClick = () => {
         setShow(!show)
     }
 
     const postDetails = (pics) => {
-
+        setPicLoading(true)
+        if (pics === undefined) {
+            toast({
+                title: 'Please select an image',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            })
+            return
+        }
+        if (pics.type === 'image/jpeg' || pics.type === 'image/png') {
+            const data = new FormData()
+            data.append("file", pics)
+            data.append('upload_preset', "Chat app")
+            data.append("cloud_name", "dmongu86b")
+            fetch("https://api.cloudinary.com/v1_1/dmongu86b/upload", {
+                method: "POST",
+                body: data
+            }).then((res) => res.json())
+                .then(data => {
+                    setPic(data.url.toString())
+                    console.log(data.url.toString())
+                    setPicLoading(false)
+                }).catch((err) => {
+                    console.log(err)
+                    setPicLoading(false)
+                })
+        }
+        else {
+            toast({
+                title: 'Please select an image',
+                status: 'warning',
+                duration: 5000,
+                isClosable: true,
+                position: 'top'
+            })
+            setPicLoading(false)
+            return;
+        }
     }
 
-    const submitHandler = () => {
-
+    const submitHandler = async () => {
+        setPicLoading(true);
+        if (!name || !email || !password || !confirmpassword) {
+            toast({
+                title: "Please Fill all the Feilds",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            });
+            setPicLoading(false);
+            return;
+        }
+        if (password !== confirmpassword) {
+            toast({
+                title: "Passwords Do Not Match",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            });
+            return;
+        }
+        console.log(name, email, password, pic);
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+            const { data } = await axios.post(
+                "/api/user",
+                {
+                    name,
+                    email,
+                    password,
+                    pic,
+                },
+                config
+            );
+            console.log(data);
+            toast({
+                title: "Registration Successful",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            });
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            setPicLoading(false);
+            navigate("/chats");
+        } catch (error) {
+            toast({
+                title: "Error Occured!",
+                description: error.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "top",
+            });
+            setPicLoading(false);
+        }
     }
 
     return (
