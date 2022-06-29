@@ -130,7 +130,7 @@ const SignIn = () => {
     }
 
     return (
-        <VStack spacing='5px' color='black'>
+        <VStack spacing='5px' color='black' fontFamily='Open Sans'>
             <FormControl id='first-name' isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input placeholder='Enter Your Name' onChange={(e) => setName(e.target.value)} _placeholder={{ opacity: 1, color: 'black' }} />

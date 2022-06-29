@@ -6,8 +6,9 @@ import axios from 'axios';
 import { AddIcon } from '@chakra-ui/icons'
 import ChatLoading from './ChatLoading';
 import { getSender } from '../config/config';
+import GroupChatModal from './GroupChatModal';
 
-const MyChats = () => {
+const MyChats = ({ fetchAgain }) => {
     const toast = useToast();
 
     const [loggedUser, setLoggedUser] = useState()
@@ -39,37 +40,40 @@ const MyChats = () => {
     useEffect(() => {
         setLoggedUser(JSON.parse(localStorage.getItem('userInfo')))
         fetchChats()
-    }, [])
+    }, [fetchAgain])
 
 
     return (
         <Box
-            d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+            display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
             flexDir="column"
             alignItems="center"
             p={3}
-            bg="white"
+            bg="#253663"
             w={{ base: "100%", md: "31%" }}
             borderRadius="lg"
+            borderColor="#253663"
             borderWidth="1px">
             <Box pb={3}
                 px={3}
-                fontSize={{ base: "28px", md: "30px" }}
+                fontSize={{ base: "28px", md: "30px", sm: "10px" }}
                 style={{ display: 'flex' }}
                 w="100%"
                 justifyContent="space-between"
                 alignItems="center">
                 My Chats
-                <Button style={{ display: 'flex' }}
-                    fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-                    rightIcon={<AddIcon />}>
-                    New Group Chat
-                </Button>
+                <GroupChatModal>
+                    <Button style={{ display: 'flex' }}
+                        fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+                        rightIcon={<AddIcon />}>
+                        New Group Chat
+                    </Button>
+                </GroupChatModal>
             </Box>
             <Box style={{ display: 'flex' }}
                 flexDir="column"
                 p={3}
-                bg="#F8F8F8"
+                bg="#253663"
                 w="100%"
                 h="100%"
                 borderRadius="lg"
@@ -81,8 +85,8 @@ const MyChats = () => {
                                 <Box
                                     onClick={() => setSelectedChat(chat)}
                                     cursor="pointer"
-                                    bg={selectedChat === chat ? "#464991" : "#7b9ac9"}
-                                    color={selectedChat === chat ? "white" : "black"}
+                                    bg={selectedChat === chat ? "#47d6a3" : "#7b9ac9"}
+                                    color={selectedChat === chat ? "black" : "white"}
                                     px={3}
                                     py={2}
                                     borderRadius="lg"

@@ -1,22 +1,23 @@
 import React from 'react'
-import { Flex } from '@chakra-ui/layout'
+import { Box } from '@chakra-ui/layout'
 import SideDrawer from './SideDrawer'
 import MyChats from './MyChats'
 import ChatBox from '../components/ChatBox'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import chatContext from '../context/ChatContext'
 
 const ChatPage = () => {
 
   const { user } = useContext(chatContext)
+  const [fetchAgain, setFetchAgain] = useState(false)
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", fontFamily: "Open Sans" }}>
       {user && <SideDrawer />}
-      <Flex justifyContent="space-between" w="100%" h="91.5vh" p="10px">
-        {user && <MyChats />}
-        {user && <ChatBox />}
-      </Flex>
+      <Box justifyContent="space-between" w="100%" h="100vh" p="10px" style={{ display: 'flex' }}>
+        {user && <MyChats fetchAgain={fetchAgain} />}
+        {user && <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />}
+      </Box>
     </div>
   )
 }

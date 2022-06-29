@@ -19,6 +19,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ChatLoading from './ChatLoading';
 import UserListItem from './UserListItem'
+import { getSender } from '../config/config'
+import NotificationBadge from 'react-notification-badge';
+import { Effect } from 'react-notification-badge'
 
 const SideDrawer = () => {
 
@@ -30,7 +33,7 @@ const SideDrawer = () => {
 
     const navigate = useNavigate()
 
-    const { user, setSelectedChat, chats, setChats } = useContext(chatContext)
+    const { user, setSelectedChat, chats, setChats, notification, setNotification } = useContext(chatContext)
 
     const logOutFunc = () => {
         localStorage.removeItem('userInfo')
@@ -117,6 +120,7 @@ const SideDrawer = () => {
                 mt={2}
                 mx='auto'
                 borderRadius='lg'
+                fontFamily='Open Sans'
                 style={{ display: 'flex' }}>
                 <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
                     <Button variant="ghost" onClick={onOpen} bg='blue.200'>
@@ -128,17 +132,34 @@ const SideDrawer = () => {
                         </Hide>
                     </Button>
                 </Tooltip>
-                <Text fontSize="2xl" fontFamily="Comic Neue" color='white'>
+                <Text fontSize="2xl" color='white'>
                     Talk-A-Tive
                 </Text>
                 <div>
                     <Menu>
                         <MenuButton p={1}>
+                            <NotificationBadge
+                                count={notification.length}
+                                effect={Effect.SCALE}
+                            />
                             <BellIcon h={7} w={7} m={1} color="red.400" />
                         </MenuButton>
-                        {/* <MenuList>
-
-                        </MenuList> */}
+                        <MenuList pl={2}>
+                            {!notification.length && "No New Messages"}
+                            {notification.map((notif) => (
+                                <MenuItem
+                                    key={notif._id}
+                                    onClick={() => {
+                                        setSelectedChat(notif.chat);
+                                        setNotification(notification.filter((n) => n !== notif));
+                                    }}
+                                >
+                                    {notif.chat.isGroupChat
+                                        ? `New Message in ${notif.chat.chatName}`
+                                        : `New Message from ${getSender(user, notif.chat.users)}`}
+                                </MenuItem>
+                            ))}
+                        </MenuList>
                     </Menu>
                     <Menu>
                         <MenuButton p={1} as={Button} bg='green.200'>
