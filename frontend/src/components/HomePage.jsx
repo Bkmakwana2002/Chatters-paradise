@@ -18,7 +18,7 @@ const HomePage = () => {
         borderRadius='lg'
         borderWidth='1px'
       >
-        <Text fontSize='4xl' fontFamily='Comic Neue' color='white' textAlign='center'>Talk-A-Tive</Text>
+        <Text fontSize='4xl' fontFamily='Comic Neue' color='white' textAlign='center'>Chatter's Paradise</Text>
       </Box>
       <Box bg={"blue.300"} w="100%" p={4} borderRadius="lg" borderWidth="1px" color='black'>
         <Tabs variant='soft-rounded' colorScheme='teal'>

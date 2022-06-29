@@ -133,7 +133,7 @@ const SideDrawer = () => {
                     </Button>
                 </Tooltip>
                 <Text fontSize="2xl" color='white'>
-                    Talk-A-Tive
+                    Chatter's Paradise
                 </Text>
                 <div>
                     <Menu>
