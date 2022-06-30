@@ -33,7 +33,7 @@ else {
 app.use(notFound)
 app.use(errorHandler)
 
-const server = app.listen(process.env.PORT, console.log("running", process.env.PORT))
+const server = app.listen(process.env.PORT||5000, console.log("running", process.env.PORT))
 
 
 const io = require("socket.io")(server, {
