@@ -1,7 +1,7 @@
 ### Chatters-paradise <br/>
 LIVE-DEMO -- https://chatterparadise.herokuapp.com/
 
-### A full MERN stack chatting application 
+<h1> A full MERN stack chatting application </h1>
 <br/>
 ### TECH Stack used
 frontend -- React Js <br/>
