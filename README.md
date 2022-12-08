@@ -6,10 +6,4 @@ LIVE-DEMO -- https://chatterparadise.herokuapp.com/
 Frontend -- React Js <br/>
 Backend -- Nodejs (using express framework)<br/>
 Database -- MongoDB 
-<p>
-  &nbsp;<img
-    align="center"
-    src="https://github-readme-stats.vercel.app/api?username=Bkmakwana2002&show_icons=true&locale=en&theme=dracula"
-    alt="vermakritik222"
-  />
-</p>
+
